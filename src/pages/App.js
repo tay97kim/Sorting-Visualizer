@@ -323,7 +323,7 @@ function App() {
     if (speed === 1) {
       sortSpeed = speed / 2;
     } else if (speed === 5) {
-      sortSpeed = arr.length / 2;
+      sortSpeed = speed * 2;
     } else {
       sortSpeed = speed * (arr.length / 5);
     }
