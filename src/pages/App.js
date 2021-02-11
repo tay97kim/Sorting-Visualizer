@@ -323,9 +323,9 @@ function App() {
     if (speed === 1) {
       sortSpeed = speed / 2;
     } else if (speed === 5) {
-      sortSpeed = speed * 2;
+      sortSpeed = arr.length / 2;
     } else {
-      sortSpeed = speed * (arr.length / 5);
+      sortSpeed = speed * (arr.length / 10);
     }
     await sleep(100);
     switch (sortType) {
