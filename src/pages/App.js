@@ -341,8 +341,10 @@ function App() {
         mergeSort(arr);
         break;
       }
-      default:
-      //do nothing
+      default: {
+        alert("먼저 정렬 종류를 선택하고 시작해주세요");
+        break;
+      }
     }
     buttonOn();
   }
