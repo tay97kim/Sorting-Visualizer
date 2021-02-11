@@ -1,0 +1,92 @@
+import styled from 'styled-components';
+
+export const Button = styled.p`
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    disabled: false;
+
+    &:hover{
+        color: green;
+    }
+`
+
+export const SortButton = styled.p`
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    disabled: false;
+
+    &:hover{
+        color: green;
+    }
+`
+
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    height: 125px;
+    width: 100%;
+`
+
+export const Wrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-evenly;
+    height: 70px;
+    width: 100%;
+    background-color: #77E000;
+`
+
+export const ControlWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-around;
+    height: 60px;
+    width: 100%;
+    background-color: #1CD90B;
+    margin-bottom: 10px;
+`
+
+export const SortWrapper = styled.div`
+    display: flex;
+    width: 40%;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-evenly;
+`
+
+export const SpeedWrapper = styled.div`
+    width: 100px;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    margin-top: 10px;
+`
+
+export const SpeedContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-evenly;
+    height: 70px;
+    width: 240px;
+    margin-left: 20px;
+`
+
+export const CountContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-evenly;
+    height: 55px;
+    width: 150px;
+    margin-left: 20px;
+    margin-top:20px;
+`
