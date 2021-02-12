@@ -127,6 +127,7 @@ function App() {
         //do nothing
       }
     }
+    buttonOn();
   }
 
   const bubbleSort = async () => {
@@ -163,6 +164,7 @@ function App() {
       if (swapped === false)
         break;
     }
+    buttonOn();
   }
 
   const insertionSort = async () => {
@@ -190,6 +192,7 @@ function App() {
       setCurIdx(null);
     }
     setNexIdx(null);
+    buttonOn();
   }
 
   const mergeSort = (receivedArr) => {
@@ -310,6 +313,7 @@ function App() {
     }
     setCurIdx(null);
     setNexIdx(null);
+    buttonOn();
   }
 
   const sortStart = async () => {
@@ -346,7 +350,6 @@ function App() {
         break;
       }
     }
-    buttonOn();
   }
 
   function sortPause() {
