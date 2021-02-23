@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 
-export default function Main({ data, currentIdx, nextIdx, onSorting }) {
+export default function Main({ data, currentIdx, nextIdx }) {
 
     const width = 500 / data.length;
     var height = 5;
@@ -15,8 +15,8 @@ export default function Main({ data, currentIdx, nextIdx, onSorting }) {
             height = 2;
         return (
             <Container>
-                {data.map((size, i) => (
-                    <Bar id={i} height={`${(size * height) + 20}px`} width={`${width}px`} active={currentIdx === size} style={nextIdx === size ? { backgroundColor: "purple" } : null} />
+                {data.map((size) => (
+                    <Bar id={size} height={`${(size * height) + 20}px`} width={`${width}px`} />
                 ))}
             </Container>
         );
@@ -24,8 +24,8 @@ export default function Main({ data, currentIdx, nextIdx, onSorting }) {
     else {
         return (
             <Container>
-                {data.map((size, i) => (
-                    <Bar id={i} height={`${(size * height) + 20}px`} width={`${width}px`} active={currentIdx === size} style={nextIdx === size ? { backgroundColor: "purple" } : null}>{size}</Bar>
+                {data.map((size) => (
+                    <Bar id={size} height={`${(size * height) + 20}px`} width={`${width}px`}>{size}</Bar>
                 ))}
             </Container >
         );
@@ -51,6 +51,6 @@ const Bar = styled.div`
     font-weight: bold;
     width: ${props => props.width};
     height: ${props => props.height || '500px'};
-    background-color: ${(props) => (props.active ? "#B50002" : "#33A5DE")};
+    background-color: #33A5DE;
     margin - right: 2px;
 `
