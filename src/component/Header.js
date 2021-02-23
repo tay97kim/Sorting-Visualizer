@@ -10,7 +10,7 @@ var valueSpeed = 3;
 var valueCP = 0;
 var valueSW = 0;
 var valueMC = 0;
-var sortState = true;
+var sortType = 0;
 
 export function valueClear() {
     valueCP = 0;
@@ -63,45 +63,64 @@ export default function Header({ sortPause, sortRestart, setArray, updateList, r
 
     function buttonOff() {
         if (valueBtn === false) {
-            valueBtn = true;
-            onSorting();
-            sortStart();
+            if (sortType === 0) {
+                alert("정렬의 종류를 먼저 선택한 뒤 시작해주세요");
+            }
+            else {
+                valueBtn = true;
+                onSorting();
+                sortStart();
+            }
         }
     }
 
     function setArrayBtn() {
-        if (valueBtn === false)
+        if (valueBtn === false) {
+            valueClear();
             setArray();
+        }
     }
 
     function updateListBtn() {
-        if (valueBtn === false)
+        if (valueBtn === false) {
+            valueClear();
             updateList();
+        }
     }
 
     function rangeChangeBtn() {
-        if (valueBtn === false)
+        if (valueBtn === false) {
+            valueClear();
             rangeChange();
+        }
     }
 
     function select() {
-        if (valueBtn === false)
+        if (valueBtn === false) {
+            sortType = 1;
             selectClicked();
+        }
     }
 
     function bubble() {
-        if (valueBtn === false)
+        if (valueBtn === false) {
+            sortType = 2;
             bubbleClicked();
+        }
     }
 
     function insert() {
-        if (valueBtn === false)
+        if (valueBtn === false) {
+            sortType = 3;
             insertClicked();
+        }
     }
 
     function merge() {
-        if (valueBtn === false)
+        if (valueBtn === false) {
+            sortType = 4;
             mergeClicked();
+        }
     }
 
     function pause() {
@@ -113,11 +132,33 @@ export default function Header({ sortPause, sortRestart, setArray, updateList, r
     const onSorting = async () => {
         var top = document.getElementById("top");
         var control = document.getElementById("control");
+        var sort;
+
+        switch (sortType) {
+            case 1: {
+                sort = document.getElementById("select");
+                break;
+            }
+            case 2: {
+                sort = document.getElementById("bubble");
+                break;
+            }
+            case 3: {
+                sort = document.getElementById("insert");
+                break;
+            }
+            case 4: {
+                sort = document.getElementById("merge");
+                break;
+            }
+        }
+        sort.style.color = "black";
         top.style.backgroundColor = "lightgray";
         control.style.backgroundColor = "gray";
         while (valueBtn) {//on Sorting
             await sleep(100);
         }
+        sort.style.color = "white";
         top.style.backgroundColor = "#77E000";
         control.style.backgroundColor = "#1CD90B";
     }
@@ -146,10 +187,10 @@ export default function Header({ sortPause, sortRestart, setArray, updateList, r
                 </SpeedContainer>
 
                 <SortWrapper>
-                    <SortButton onClick={select}>선택정렬</SortButton>
-                    <SortButton onClick={bubble}>버블정렬</SortButton>
-                    <SortButton onClick={insert}>삽입정렬</SortButton>
-                    <SortButton onClick={merge}>병합정렬</SortButton>
+                    <SortButton id="select" onClick={select}>선택정렬</SortButton>
+                    <SortButton id="bubble" onClick={bubble}>버블정렬</SortButton>
+                    <SortButton id="insert" onClick={insert}>삽입정렬</SortButton>
+                    <SortButton id="merge" onClick={merge}>병합정렬</SortButton>
                 </SortWrapper>
             </ Wrapper >
             <ControlWrapper id="control">
