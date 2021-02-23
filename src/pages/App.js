@@ -331,13 +331,6 @@ function App() {
       for (let j = (i + 1); j < (left + right); j++) {
         if (compArr[j] < compArr[least]) {
           least = j;
-
-          addMergeHistory(arr);
-          addCountHistory([true, false]);
-          addRedBarHistory([compArr[least]]);
-          addPurpleBarHistory([0]);
-          addSortingBarHistory(compArr);//최소값 갱신 배열 기록 추가
-        } else {//최소값 미갱신
         }
       }
       if (least !== i) {//swap이 필요한 상태 > 함수에서 교환 증가
