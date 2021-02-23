@@ -7,7 +7,7 @@ export default function Main() {
             <FooterContent>
                 <Name>Sort Visualizer</Name>
             </FooterContent>
-            <FooterContent>Made by TaeSeong Kim for 모두를 위한 컴퓨팅 사고</FooterContent>
+            <FooterContent>[2021.02] Made by TaeSeong Kim for 모두를 위한 컴퓨팅 사고</FooterContent>
             <FooterContent>
                 <img src="header_logo.jpg" width="295" height="56" />
             </FooterContent>
@@ -31,6 +31,7 @@ const FooterContent = styled.div`
     align-content: center;
     justify-content: space-evenly;
     padding-top:10px;
+    font-Size:15px;
 `
 
 const Name = styled.div`
