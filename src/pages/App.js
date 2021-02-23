@@ -17,8 +17,12 @@ function App() {
   const [nexIdx, setNexIdx] = useState(null);
   var mergeHistory = [];
   var mergeTotalIdx = 0;
-  var changeHistory = [];
-  var changeTotalIdx = 0;
+  var redBarHistory = [];
+  var redBarTotalIdx = 0;
+  var purpleBarHistory = [];
+  var purpleBarTotalIdx = 0;
+  var sortingBarHistory = [];
+  var sortingBarTotalIdx = 0;
   var countHistory = [];
   var countTotalIdx = 0;
 
@@ -78,20 +82,59 @@ function App() {
     }
   };
 
+  const setFinished = (value) => {//정렬이 끝난 원소를 회색으로 변경
+    var tmp = document.getElementById(value);
+    tmp.style.backgroundColor = "gray";
+  }
+
+  const setNowIdx = (value) => {//현재 정렬 내 표적 인덱스를 지칭하거나 구분을 위한 1색(보라)
+    var tmp = document.getElementById(value);
+    tmp.style.backgroundColor = "purple";
+  }
+
+  const setCompIdx = (value) => {//현재 정렬 내 최소값이거나 교환 대상 인덱스이거나 구분을 위한 2색(빨강)
+    var tmp = document.getElementById(value);
+    tmp.style.backgroundColor = "#B50002";
+  }
+
+  const setFreeIdx = (value) => {//특정 bar 색상만 초기화
+    var tmp = document.getElementById(value);
+    tmp.style.backgroundColor = "#33A5DE";
+  }
+
+  const barGrayClear = () => {//정렬이 진행중이지 않은 곳을 구분하기 위해 검정색으로 덮어쓰기 
+    for (let i = 0; i < arr.length; i++) {
+      var tmp = document.getElementById(arr[i]);
+      tmp.style.backgroundColor = "lightgray";
+    }
+  }
+
+  const barClear = () => {//모든 bar 색상을 초기화
+    for (let i = 0; i < arr.length; i++) {
+      var tmp = document.getElementById(arr[i]);
+      tmp.style.backgroundColor = "#33A5DE";
+    }
+
+  }
+
   const selectClicked = () => {
     setSort(1);
+    valueClear();
   }
 
   const bubbleClicked = () => {
     setSort(2);
+    valueClear();
   }
 
   const insertClicked = () => {
     setSort(3);
+    valueClear();
   }
 
   const mergeClicked = () => {
     setSort(4);
+    valueClear();
   }
 
   const selectSort = async () => {
@@ -100,22 +143,28 @@ function App() {
     let least;
 
     for (let i = 0; i < len; i++) {
-      setCurIdx(null);
-      setNexIdx(null);
       least = i;
+
+      if (i != 0) {
+        setFinished(inputArr[i - 1]);
+      }
+
       for (let j = i + 1; j < len; j++) {
-        setNexIdx(inputArr[j]);
+        setNowIdx(inputArr[j]);
         if (inputArr[j] < inputArr[least]) {
-          setNexIdx(null);
+          setFreeIdx(inputArr[least]);
+          setNowIdx(inputArr[j]);
           least = j;
         }
         plusValue(1);
         setArr([...arr]);
-        setCurIdx(inputArr[least]);
+        setCompIdx(inputArr[least]);
         await sleep(375 / sortSpeed);
+        setFreeIdx(inputArr[j]);
       }
       if (i !== least) {//swap
-        setNexIdx(inputArr[i]);
+        setNowIdx(inputArr[least]);
+        setCompIdx(inputArr[i]);
         let tmp = inputArr[least];
         inputArr[least] = inputArr[i];
         inputArr[i] = tmp;
@@ -126,8 +175,12 @@ function App() {
         await sleep(375 / sortSpeed);
         //do nothing
       }
+      setFreeIdx(inputArr[least]);
+      setFreeIdx(inputArr[i]);
     }
+    barClear();
     buttonOn();
+    alert("정렬이 완료되었습니다.");
   }
 
   const bubbleSort = async () => {
@@ -138,61 +191,81 @@ function App() {
     for (let i = 0; i < len; i++) {
       swapped = false;
       for (let j = 0; j < sorted - 1; j++) {
-        setCurIdx(inputArr[j]);
+        setNowIdx(inputArr[j]);
         await sleep(375 / sortSpeed);
         if (inputArr[j] > inputArr[j + 1]) {//swap
-          setNexIdx(inputArr[j + 1]);
+          setCompIdx(inputArr[j + 1]);
           await sleep(375 / sortSpeed);
           plusValue(1);
           setArr([...arr]);
           let tmp = inputArr[j];
           inputArr[j] = inputArr[j + 1];
           inputArr[j + 1] = tmp;
+          setCompIdx(inputArr[j + 1]);
+          setNowIdx(inputArr[j]);
           plusValue(2);
-          setArr([...arr]);
+          setArr(inputArr);
           swapped = true;
         } else {
           plusValue(1);
-          setArr([...arr]);
+          setArr(inputArr);
           await sleep(375 / sortSpeed);
         }
         await sleep(375 / sortSpeed);
-        setNexIdx(null);
+        setFreeIdx(inputArr[j]);
       }
+      if (sorted != 0)
+        setFinished(inputArr[(sorted - 1)]);
+
       sorted--;
       setCurIdx(null);
-      if (swapped === false)
+      if (swapped === false) {
+        while (sorted > 1) {
+          plusValue(1);
+          setFinished(inputArr[(sorted - 1)]);
+          sorted--;
+          await sleep(750 / sortSpeed);
+        }
         break;
+      }
     }
+    barClear();
     buttonOn();
+    alert("정렬이 완료되었습니다.");
   }
 
   const insertionSort = async () => {
     const inputArr = arr;
     let len = inputArr.length;
+    let compIdx = 0;
 
     for (let i = 0; i < len; i++) {
-      setNexIdx(inputArr[i]);
-      await sleep(375 / sortSpeed);
+      setNowIdx(inputArr[i]);
       for (let j = i; j > 0; j--) {
         if (inputArr[j] < inputArr[j - 1]) {//swap
-          setNexIdx(null);
-          setCurIdx(inputArr[j]);
+          await sleep(188 / sortSpeed);
+          compIdx = j;
           plusValue(1);
           setArr([...arr]);
           let tmp = inputArr[j];
           inputArr[j] = inputArr[j - 1];
           inputArr[j - 1] = tmp;
           plusValue(2);
+          setFinished(inputArr[j - 1]);
+          setCompIdx(inputArr[j]);
           setArr([...arr]);
         } else {
         }
-        await sleep(375 / sortSpeed);
+        await sleep(188 / sortSpeed);
       }
-      setCurIdx(null);
+      for (let k = 0; k < i + 1; k++) {
+        setFinished(inputArr[k]);
+      }
     }
     setNexIdx(null);
+    barClear();
     buttonOn();
+    alert("정렬이 완료되었습니다.");
   }
 
   const mergeSort = (receivedArr) => {
@@ -206,6 +279,7 @@ function App() {
     setArr([...arr]);
     let recurArr = receivedArr;
     if (recurArr.length <= 1) {
+
       return recurArr;
     }
 
@@ -213,7 +287,26 @@ function App() {
     let left = recurArr.slice(0, midIdx);
     let right = recurArr.slice(midIdx);
 
+    addMergeHistory(arr);
+    addCountHistory([false, false]);
+    addRedBarHistory(left);
+    addPurpleBarHistory([0]);
+    addSortingBarHistory(recurArr);//왼쪽 표시
+
+    addMergeHistory(arr);
+    addCountHistory([false, false]);
+    addRedBarHistory(left);
+    addPurpleBarHistory(right);
+    addSortingBarHistory(recurArr);//오른쪽 표시
+
+    addMergeHistory(arr);
+    addCountHistory([false, false]);
+    addRedBarHistory([0]);
+    addPurpleBarHistory([0]);
+    addSortingBarHistory(recurArr);//색상 초기화
+
     let leftArr = recursion(left);
+    //배열 기록 추가 필요
     let rightArr = recursion(right);
 
     let newArr = domerge(leftArr, rightArr);
@@ -234,24 +327,40 @@ function App() {
       for (let j = (i + 1); j < (left + right); j++) {
         if (compArr[j] < compArr[least]) {
           least = j;
+
+          addMergeHistory(arr);
+          addCountHistory([true, false]);
+          addRedBarHistory([compArr[least]]);
+          addPurpleBarHistory([0]);
+          addSortingBarHistory(compArr);//최소값 갱신 배열 기록 추가
+        } else {//최소값 미갱신
         }
       }
-      if (least !== i) {//비교 > swap 함수에서 교환 증가
+      if (least !== i) {//swap이 필요한 상태 > 함수에서 교환 증가
         addMergeHistory(arr);
+        addCountHistory([false, false]);
+        addRedBarHistory([compArr[least]]);
+        addPurpleBarHistory([compArr[i]]);
+        addSortingBarHistory(compArr);//교환 전 
+
         let tmp = compArr[i];
         compArr[i] = compArr[least];
         compArr[least] = tmp;
-        addCountHistory([true, false]);
 
-        var comp = [compArr[i], compArr[least]];
-        addChangeHistory(comp);
         swapInMerge(compArr[i], compArr[least]);
-      } else {//비교만 하는 것
+
         addMergeHistory(arr);
-        addCountHistory([true, false]);
-        var comp = [compArr[i], 0];
-        addChangeHistory(comp);
+        addCountHistory([false, true]);
+        addRedBarHistory([compArr[i]]);
+        addPurpleBarHistory([compArr[least]]);
+        addSortingBarHistory(compArr);//교환 후
+      } else {//이미 정렬이 된 상태
       }
+      addMergeHistory(arr);
+      addCountHistory([false, false]);
+      addRedBarHistory([0]);
+      addPurpleBarHistory([0]);
+      addSortingBarHistory(compArr.slice(i + 1));
     }
     return (compArr);
   }
@@ -268,19 +377,6 @@ function App() {
     let tmp = arr[realIdx2];
     arr[realIdx2] = arr[realIdx1];
     arr[realIdx1] = tmp;
-
-    var changed = [arr[realIdx2], arr[realIdx1]];
-    addCountHistory([false, true]);
-    addChangeHistory(changed);
-    addMergeHistory(arr);
-  }
-
-  const addChangeHistory = (arr) => {
-    changeHistory.push([]);
-    for (var i = 0; i < arr.length; i++) {
-      changeHistory[changeTotalIdx].push(arr[i]);
-    }
-    changeTotalIdx++;
   }
 
   const addMergeHistory = (receivingArr) => {
@@ -291,29 +387,68 @@ function App() {
     mergeTotalIdx++;
   }
 
+  const addRedBarHistory = (arr) => {
+    redBarHistory.push([]);
+    for (var r = 0; r < arr.length; r++) {
+      redBarHistory[redBarTotalIdx].push(arr[r]);
+    }
+    redBarTotalIdx++;
+  }
+
+  const addPurpleBarHistory = (arr) => {
+    purpleBarHistory.push([]);
+    for (var p = 0; p < arr.length; p++) {
+      purpleBarHistory[purpleBarTotalIdx].push(arr[p]);
+    }
+    purpleBarTotalIdx++;
+  }
+
+  const addSortingBarHistory = (arr) => {
+    sortingBarHistory.push([]);
+    for (var s = 0; s < arr.length; s++) {
+      sortingBarHistory[sortingBarTotalIdx].push(arr[s]);
+    }
+    sortingBarTotalIdx++;
+  }
+
   const addCountHistory = (compNswap) => {
     countHistory.push([]);
-    for (var k = 0; k < compNswap.length; k++) {
-      countHistory[countTotalIdx].push(compNswap[k]);
+    for (var c = 0; c < compNswap.length; c++) {
+      countHistory[countTotalIdx].push(compNswap[c]);
     }
     countTotalIdx++;
   }
 
   const mergeTimeLine = async () => {
     for (let i = 0; i < mergeHistory.length; i++) {
+      barGrayClear();
       if (countHistory[i][0] === true)
         plusValue(1);
       if (countHistory[i][1] === true)
         plusValue(2);
-
-      setCurIdx(changeHistory[i][0]);
-      setNexIdx(changeHistory[i][1]);
       setArr(mergeHistory[i]);
+
+      if (sortingBarHistory[i][0] != 0) {//현재 진행중인 bar만 색상 초기화
+        for (let s = 0; s < sortingBarHistory[i].length; s++) {
+          setFreeIdx(sortingBarHistory[i][s]);
+        }
+      }
+      if (redBarHistory[i][0] != 0) {
+        for (let r = 0; r < redBarHistory[i].length; r++) {
+          setCompIdx(redBarHistory[i][r]);
+        }
+      }
+      if (purpleBarHistory[i][0] != 0) {
+        for (let p = 0; p < purpleBarHistory[i].length; p++) {
+          setNowIdx(purpleBarHistory[i][p]);
+        }
+      }
+
       await sleep(750 / sortSpeed);
     }
-    setCurIdx(null);
-    setNexIdx(null);
+    barClear();
     buttonOn();
+    alert("정렬이 완료되었습니다.");
   }
 
   const sortStart = async () => {
@@ -321,11 +456,15 @@ function App() {
 
     var speed = getSpeed();
     if (speed === 1) {
-      sortSpeed = speed / 2;
+      if (arr.length <= 8) {
+        sortSpeed = speed / 4;
+      } else {
+        sortSpeed = speed / 2;
+      }
     } else if (speed === 5) {
-      sortSpeed = arr.length / 2;
+      sortSpeed = speed * 2 * (arr.length / 5);
     } else {
-      sortSpeed = speed * (arr.length / 10);
+      sortSpeed = speed * (arr.length / 5);
     }
     await sleep(100);
     switch (sortType) {
@@ -345,10 +484,8 @@ function App() {
         mergeSort(arr);
         break;
       }
-      default: {
-        alert("먼저 정렬 종류를 선택하고 시작해주세요");
-        break;
-      }
+      default:
+      //do nothing
     }
   }
 
