@@ -191,12 +191,13 @@ function App() {
     for (let i = 0; i < len; i++) {
       swapped = false;
       for (let j = 0; j < sorted - 1; j++) {
+        plusValue(1);
+        setArr([...arr]);
         setNowIdx(inputArr[j]);
         await sleep(375 / sortSpeed);
         if (inputArr[j] > inputArr[j + 1]) {//swap
           setCompIdx(inputArr[j + 1]);
           await sleep(375 / sortSpeed);
-          plusValue(1);
           setArr([...arr]);
           let tmp = inputArr[j];
           inputArr[j] = inputArr[j + 1];
@@ -207,11 +208,10 @@ function App() {
           setArr(inputArr);
           swapped = true;
         } else {
-          plusValue(1);
           setArr(inputArr);
           await sleep(375 / sortSpeed);
         }
-        await sleep(375 / sortSpeed);
+        await sleep(188 / sortSpeed);
         setFreeIdx(inputArr[j]);
       }
       if (sorted != 0)
@@ -222,6 +222,7 @@ function App() {
       if (swapped === false) {
         while (sorted > 1) {
           plusValue(1);
+          setArr([...arr]);
           setFinished(inputArr[(sorted - 1)]);
           sorted--;
           await sleep(750 / sortSpeed);
@@ -235,6 +236,7 @@ function App() {
   }
 
   const insertionSort = async () => {
+    setArr([...arr]);
     const inputArr = arr;
     let len = inputArr.length;
     let compIdx = 0;
@@ -242,10 +244,11 @@ function App() {
     for (let i = 0; i < len; i++) {
       setNowIdx(inputArr[i]);
       for (let j = i; j > 0; j--) {
+        plusValue(1);
+        setArr([...arr]);
+        await sleep(188 / sortSpeed);
         if (inputArr[j] < inputArr[j - 1]) {//swap
-          await sleep(188 / sortSpeed);
           compIdx = j;
-          plusValue(1);
           setArr([...arr]);
           let tmp = inputArr[j];
           inputArr[j] = inputArr[j - 1];
@@ -255,9 +258,11 @@ function App() {
           setCompIdx(inputArr[j]);
           setArr([...arr]);
         } else {
+          break;
         }
         await sleep(188 / sortSpeed);
       }
+      await sleep(188 / sortSpeed);
       for (let k = 0; k < i + 1; k++) {
         setFinished(inputArr[k]);
       }
@@ -306,7 +311,6 @@ function App() {
     addSortingBarHistory(recurArr);//색상 초기화
 
     let leftArr = recursion(left);
-    //배열 기록 추가 필요
     let rightArr = recursion(right);
 
     let newArr = domerge(leftArr, rightArr);
@@ -420,6 +424,7 @@ function App() {
   }
 
   const mergeTimeLine = async () => {
+    setArr([...arr]);
     for (let i = 0; i < mergeHistory.length; i++) {
       barGrayClear();
       if (countHistory[i][0] === true)
@@ -452,6 +457,7 @@ function App() {
   }
 
   const sortStart = async () => {
+    await sleep(100);
     valueClear();
 
     var speed = getSpeed();
