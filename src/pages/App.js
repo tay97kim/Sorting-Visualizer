@@ -335,7 +335,7 @@ function App() {
       }
       if (least !== i) {//swap이 필요한 상태 > 함수에서 교환 증가
         addMergeHistory(arr);
-        addCountHistory([false, false]);
+        addCountHistory([true, false]);
         addRedBarHistory([compArr[least]]);
         addPurpleBarHistory([compArr[i]]);
         addSortingBarHistory(compArr);//교환 전 
@@ -354,7 +354,7 @@ function App() {
       } else {//이미 정렬이 된 상태
       }
       addMergeHistory(arr);
-      addCountHistory([false, false]);
+      addCountHistory([true, false]);
       addRedBarHistory([0]);
       addPurpleBarHistory([0]);
       addSortingBarHistory(compArr.slice(i + 1));
