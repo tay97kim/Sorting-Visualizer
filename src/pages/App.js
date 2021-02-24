@@ -293,19 +293,19 @@ function App() {
     let right = recurArr.slice(midIdx);
 
     addMergeHistory(arr);
-    addCountHistory([false, false]);
+    addCountHistory([false, false, false]);
     addRedBarHistory(left);
     addPurpleBarHistory([0]);
     addSortingBarHistory(recurArr);//왼쪽 표시
 
     addMergeHistory(arr);
-    addCountHistory([false, false]);
+    addCountHistory([false, false, false]);
     addRedBarHistory(left);
     addPurpleBarHistory(right);
     addSortingBarHistory(recurArr);//오른쪽 표시
 
     addMergeHistory(arr);
-    addCountHistory([false, false]);
+    addCountHistory([false, false, false]);
     addRedBarHistory([0]);
     addPurpleBarHistory([0]);
     addSortingBarHistory(recurArr);//색상 초기화
@@ -318,7 +318,6 @@ function App() {
   }
 
   const domerge = (leftArr, rightArr) => {//대체 배열이 아닌 실제 배열의 인덱스를 서로 교환할 수 있게(반환x)
-    plusValue(3);
     setArr([...arr]);
     var left = leftArr.length;
     var right = rightArr.length;
@@ -335,7 +334,7 @@ function App() {
       }
       if (least !== i) {//swap이 필요한 상태 > 함수에서 교환 증가
         addMergeHistory(arr);
-        addCountHistory([true, false]);
+        addCountHistory([true, false, false]);
         addRedBarHistory([compArr[least]]);
         addPurpleBarHistory([compArr[i]]);
         addSortingBarHistory(compArr);//교환 전 
@@ -347,18 +346,29 @@ function App() {
         swapInMerge(compArr[i], compArr[least]);
 
         addMergeHistory(arr);
-        addCountHistory([false, true]);
+        addCountHistory([false, true, false]);
         addRedBarHistory([compArr[i]]);
         addPurpleBarHistory([compArr[least]]);
         addSortingBarHistory(compArr);//교환 후
       } else {//이미 정렬이 된 상태
       }
       addMergeHistory(arr);
-      addCountHistory([true, false]);
+      addCountHistory([true, false, false]);
       addRedBarHistory([0]);
       addPurpleBarHistory([0]);
       addSortingBarHistory(compArr.slice(i + 1));
     }
+    addMergeHistory(arr);
+    addCountHistory([false, false, true]);
+    addRedBarHistory([0]);
+    addPurpleBarHistory(compArr);
+    addSortingBarHistory(compArr);
+
+    addMergeHistory(arr);
+    addCountHistory([false, false, false]);
+    addRedBarHistory([0]);
+    addPurpleBarHistory([0]);
+    addSortingBarHistory(compArr);
     return (compArr);
   }
 
@@ -424,6 +434,8 @@ function App() {
         plusValue(1);
       if (countHistory[i][1] === true)
         plusValue(2);
+      if (countHistory[i][2] === true)
+        plusValue(3);
       setArr(mergeHistory[i]);
 
       if (sortingBarHistory[i][0] != 0) {//현재 진행중인 bar만 색상 초기화
