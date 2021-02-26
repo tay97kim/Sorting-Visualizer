@@ -7,9 +7,17 @@ export default function Main() {
             <FooterContent>
                 <Name>Sort Visualizer</Name>
             </FooterContent>
-            <FooterContent>[2021.02] Made by TaeSeong Kim for 모두를 위한 컴퓨팅 사고</FooterContent>
             <FooterContent>
-                <img src="header_logo.jpg" width="295" height="56" />
+                <InnerContent>
+                    [2021.02] Made by TaeSeong Kim for 모두를 위한 컴퓨팅 사고
+                    <p />Advised by Prof. Jongwan Kim
+                </InnerContent>
+            </FooterContent>
+            <FooterContent>
+                <InnerContent>
+                    <img src="header_logo.jpg" width="295" height="56" />
+                    <img src="ccl.png" width="295" height="50" />
+                </InnerContent>
             </FooterContent>
         </Footer >
     )
@@ -31,11 +39,16 @@ const FooterContent = styled.div`
     align-content: center;
     justify-content: space-evenly;
     padding-top:10px;
-    font-Size:15px;
 `
 
 const Name = styled.div`
     font-size: 40px;
     color: white;
     padding-right: 80px;
+`
+
+const InnerContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    font-Size:14px;
 `
