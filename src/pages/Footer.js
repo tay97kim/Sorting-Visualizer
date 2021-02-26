@@ -14,10 +14,8 @@ export default function Main() {
                 </InnerContent>
             </FooterContent>
             <FooterContent>
-                <InnerContent>
-                    <img src="header_logo.jpg" width="295" height="56" />
-                    <img src="ccl.png" width="295" height="50" />
-                </InnerContent>
+                <img src="header_logo.jpg" width="295" height="56" />
+                <img src="ccl.png" width="200" height="56" />
             </FooterContent>
         </Footer >
     )
@@ -28,6 +26,7 @@ const Footer = styled.footer`
     flex-direction: row;
     width: 100%;
     height: 300px;
+    align-content: space-between;
     background-color: #71B309;
     justify-content: center;
 `
@@ -44,11 +43,11 @@ const FooterContent = styled.div`
 const Name = styled.div`
     font-size: 40px;
     color: white;
-    padding-right: 80px;
 `
 
 const InnerContent = styled.div`
     display: flex;
+    width: 450px;
     flex-direction: column;
     font-Size:14px;
 `
