@@ -15,7 +15,7 @@ export default function Main() {
             </FooterContent>
             <FooterContent>
                 <img src="header_logo.jpg" width="295" height="56" />
-                <img src="ccl.png" width="295" height="56" />
+                <img src="ccl.png" width="180" height="56" />
             </FooterContent>
         </Footer >
     )
