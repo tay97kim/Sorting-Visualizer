@@ -9,13 +9,13 @@ export default function Main() {
             </FooterContent>
             <FooterContent>
                 <InnerContent>
-                    [2021.02] Made by TaeSeong Kim for 모두를 위한 컴퓨팅 사고
-                    <p />Advised by Prof. Jongwan Kim
+                    Designed by Prof. Jongwan Kim, produced by TaeSeong Kim
+                    <p />[2021.02] - 모두를 위한 컴퓨팅 사고
                 </InnerContent>
             </FooterContent>
             <FooterContent>
                 <img src="header_logo.jpg" width="295" height="56" />
-                <img src="ccl.png" width="180" height="56" />
+                <img src="ccl.png" width="200" height="56" />
             </FooterContent>
         </Footer >
     )
@@ -47,7 +47,8 @@ const Name = styled.div`
 
 const InnerContent = styled.div`
     display: flex;
-    width: 450px;
+    width: 550px;
     flex-direction: column;
-    font-Size:14px;
+    font-Size:19px;
+    line-height: 0% !important;
 `
