@@ -10,7 +10,7 @@ export default function Main() {
             <FooterContent>
                 <InnerContent>
                     Designed by Prof. Jongwan Kim, produced by TaeSeong Kim
-                    <p />[2021.02] - 모두를 위한 컴퓨팅 사고
+                    <p />모두를 위한 컴퓨팅 사고 - Updated on [2021.02]
                 </InnerContent>
             </FooterContent>
             <FooterContent>
