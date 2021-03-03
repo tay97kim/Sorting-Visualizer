@@ -149,6 +149,9 @@ function App() {
         setFinished(inputArr[i - 1]);
       }
 
+      setCompIdx(inputArr[least]);
+      await sleep(375 / sortSpeed);
+
       for (let j = i + 1; j < len; j++) {
         setNowIdx(inputArr[j]);
         if (inputArr[j] < inputArr[least]) {
@@ -163,11 +166,14 @@ function App() {
         setFreeIdx(inputArr[j]);
       }
       if (i !== least) {//swap
-        setNowIdx(inputArr[least]);
-        setCompIdx(inputArr[i]);
+        setNowIdx(inputArr[i]);
+        setCompIdx(inputArr[least]);
+        await sleep(375 / sortSpeed);
         let tmp = inputArr[least];
         inputArr[least] = inputArr[i];
         inputArr[i] = tmp;
+        setNowIdx(inputArr[i]);
+        setCompIdx(inputArr[least]);
         plusValue(2);
         setArr([...arr]);
         await sleep(375 / sortSpeed);
@@ -454,7 +460,7 @@ function App() {
         }
       }
 
-      await sleep(750 / sortSpeed);
+      await sleep(375 / sortSpeed);
     }
     barClear();
     buttonOn();
@@ -468,9 +474,9 @@ function App() {
     var speed = getSpeed();
     if (speed === 1) {
       if (arr.length <= 8) {
-        sortSpeed = speed / 4;
+        sortSpeed = speed / 12;
       } else {
-        sortSpeed = speed / 2;
+        sortSpeed = speed / 4;
       }
     } else if (speed === 5) {
       sortSpeed = speed * 2 * (arr.length / 5);
