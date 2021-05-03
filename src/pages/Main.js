@@ -4,15 +4,15 @@ import styled from 'styled-components';
 export default function Main({ data, currentIdx, nextIdx }) {
 
     const width = 500 / data.length;
-    var height = 5;
+    var height = 4;
 
     if (data.length > 29) {
-        if (data.length >= 50)
-            height = 4;
-        else if (data.length >= 75)
+        //if (data.length >= 50)
+        //height = 4;
+        //if (data.length >= 75)
+        //height = 3;
+        if (data.length >= 100)
             height = 3;
-        else if (data.length >= 100)
-            height = 2;
         return (
             <Container>
                 {data.map((size) => (
@@ -38,7 +38,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     width: 88%;
-    height: 300px;
+    height: 220px;
     justify-content: space-evenly;
     margin-left: 50px;
     margin-right: 50px;
