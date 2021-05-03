@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Button = styled.p`
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     color: #fff;
     cursor: pointer;
@@ -13,7 +13,7 @@ export const Button = styled.p`
 `
 
 export const SortButton = styled.p`
-    font-size: 20px;
+    font-size: 21px;
     font-weight: bold;
     color: #fff;
     cursor: pointer;
@@ -29,7 +29,7 @@ export const Container = styled.div`
     flex-direction: column;
     align-content: center;
     justify-content: space-between;
-    height: 125px;
+    height: 200px;
     width: 100%;
 `
 
@@ -38,9 +38,10 @@ export const Wrapper = styled.div`
     flex-direction: row;
     align-content: center;
     justify-content: space-evenly;
-    height: 70px;
+    height: 140px;
     width: 100%;
     background-color: #77E000;
+    padding-top:20px;
 `
 
 export const ControlWrapper = styled.div`
@@ -48,10 +49,11 @@ export const ControlWrapper = styled.div`
     flex-direction: row;
     align-content: center;
     justify-content: space-around;
-    height: 60px;
+    height: 70px;
     width: 100%;
     background-color: #1CD90B;
-    margin-bottom: 10px;
+    margin-top: 0px;
+    padding-top: 0px;
 `
 
 export const SortWrapper = styled.div`
@@ -81,11 +83,13 @@ export const SpeedContainer = styled.div`
 `
 
 export const CountContainer = styled.div`
+    font-size: 20px;
+    font-weight: bold;
     display: flex;
     flex-direction: row;
     align-content: center;
     justify-content: space-evenly;
-    height: 55px;
+    height: 50px;
     width: 150px;
     margin-left: 20px;
     margin-top:20px;
