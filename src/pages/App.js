@@ -474,7 +474,7 @@ function App() {
     var speed = getSpeed();
     if (speed === 1) {
       if (arr.length <= 8) {
-        sortSpeed = speed / 12;
+        sortSpeed = speed / 8;
       } else {
         sortSpeed = speed / 4;
       }
