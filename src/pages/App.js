@@ -584,13 +584,13 @@ function App() {
         setNowIdx(inputArr[i]);
         plusValue(4);
         setArr([...arr]);
-        await sleep(375/taskSpeed);
+        await sleep(750/taskSpeed);
         if(searchV==inputArr[i]){
           findIdx=i;
           break;
         }
       }
-      await sleep(375/taskSpeed);
+      await sleep(500);
       setCompIdx(inputArr[findIdx]);
       await sleep(500);
       setFreeIdx(inputArr[findIdx]);
