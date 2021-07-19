@@ -7,16 +7,12 @@ export default function Main({ data, currentIdx, nextIdx }) {
     var height = 4;
 
     if (data.length > 29) {
-        //if (data.length >= 50)
-        //height = 4;
-        //if (data.length >= 75)
-        //height = 3;
         if (data.length >= 100)
             height = 3;
         return (
             <Container>
                 {data.map((size) => (
-                    <Bar id={size} height={`${(size * height) + 20}px`} width={`${width}px`} />
+                    <Bar key={size} id={size} height={`${(size * height) + 20}px`} width={`${width}px`} />
                 ))}
             </Container>
         );
@@ -25,7 +21,7 @@ export default function Main({ data, currentIdx, nextIdx }) {
         return (
             <Container>
                 {data.map((size) => (
-                    <Bar id={size} height={`${(size * height) + 20}px`} width={`${width}px`}>{size}</Bar>
+                    <Bar key={size} id={size} height={`${(size * height) + 20}px`} width={`${width}px`}>{size}</Bar>
                 ))}
             </Container >
         );
