@@ -260,8 +260,8 @@ function App() {
           inputArr[j] = inputArr[j - 1];
           inputArr[j - 1] = tmp;
           plusValue(2);
-          setFinished(inputArr[j - 1]);
-          setCompIdx(inputArr[j]);
+          setFinished(inputArr[j]);
+          setCompIdx(inputArr[j - 1]);
           setArr([...arr]);
         } else {
           break;
