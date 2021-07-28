@@ -12,8 +12,8 @@ export const Button = styled.p`
     }
 `
 
-export const Button2 = styled.p`
-    font-size: 20px;
+export const SortButton = styled.p`
+    font-size: 21px;
     font-weight: bold;
     color: #fff;
     cursor: pointer;
@@ -58,15 +58,7 @@ export const ControlWrapper = styled.div`
 
 export const SortWrapper = styled.div`
     display: flex;
-    width: 35%;
-    flex-direction: row;
-    align-content: center;
-    justify-content: space-evenly;
-`
-
-export const SearchWrapper = styled.div`
-    display: flex;
-    width: 15%;
+    width: 40%;
     flex-direction: row;
     align-content: center;
     justify-content: space-evenly;
@@ -86,7 +78,7 @@ export const SpeedContainer = styled.div`
     align-content: center;
     justify-content: space-evenly;
     height: 70px;
-    width: 200px;
+    width: 240px;
     margin-left: 20px;
 `
 
