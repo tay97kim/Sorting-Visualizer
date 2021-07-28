@@ -10,7 +10,7 @@ export default function Main() {
             <FooterContent>
                 <InnerContent>
                     Designed by Prof. Jongwan Kim, produced by TaeSeong Kim
-                    <p />[2021.07] - 모두를 위한 컴퓨팅 사고
+                    <p />모두를 위한 컴퓨팅 사고 - Updated on [2021.02]
                 </InnerContent>
             </FooterContent>
             <FooterContent>
@@ -47,8 +47,8 @@ const Name = styled.div`
 
 const InnerContent = styled.div`
     display: flex;
-    width: 100%;
+    width: 550px;
     flex-direction: column;
     font-Size:19px;
-    line-height: 100% !important;
+    line-height: 0% !important;
 `
