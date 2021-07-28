@@ -50,5 +50,5 @@ const InnerContent = styled.div`
     width: 100%;
     flex-direction: column;
     font-Size:19px;
-    line-height: 0% !important;
+    line-height: 100% !important;
 `
