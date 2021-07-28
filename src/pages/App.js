@@ -12,7 +12,7 @@ function App() {
   const [size, setSize] = useState(8);
   const [arr, setArr] = useState([]);
   const [sortType, setSort] = useState(0);
-  var taskSpeed = 3;
+  var sortSpeed = 3;
   const [curIdx, setCurIdx] = useState(null);
   const [nexIdx, setNexIdx] = useState(null);
   var mergeHistory = [];
@@ -21,18 +21,16 @@ function App() {
   var redBarTotalIdx = 0;
   var purpleBarHistory = [];
   var purpleBarTotalIdx = 0;
-  var onTaskHistory = [];
-  var onTaskTotalIdx = 0;
+  var sortingBarHistory = [];
+  var sortingBarTotalIdx = 0;
   var countHistory = [];
   var countTotalIdx = 0;
-  var searchHistory = [];
-  var searchTotalIdx = 0;
-  var searchCountHistory = [];
-  var searchCountIdx = 0;
 
   useEffect(() => {
     updateList();
   }, [size]);
+
+  //useEffect(() => { console.log("arr updated") }, [arr]);
 
   const sleep = (milliseconds) => { //딜레이 메소드
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -152,7 +150,7 @@ function App() {
       }
 
       setCompIdx(inputArr[least]);
-      await sleep(375 / taskSpeed);
+      await sleep(375 / sortSpeed);
 
       for (let j = i + 1; j < len; j++) {
         setNowIdx(inputArr[j]);
@@ -164,13 +162,13 @@ function App() {
         plusValue(1);
         setArr([...arr]);
         setCompIdx(inputArr[least]);
-        await sleep(375 / taskSpeed);
+        await sleep(375 / sortSpeed);
         setFreeIdx(inputArr[j]);
       }
       if (i !== least) {//swap
         setNowIdx(inputArr[i]);
         setCompIdx(inputArr[least]);
-        await sleep(375 / taskSpeed);
+        await sleep(375 / sortSpeed);
         let tmp = inputArr[least];
         inputArr[least] = inputArr[i];
         inputArr[i] = tmp;
@@ -178,9 +176,9 @@ function App() {
         setCompIdx(inputArr[least]);
         plusValue(2);
         setArr([...arr]);
-        await sleep(375 / taskSpeed);
+        await sleep(375 / sortSpeed);
       } else {
-        await sleep(375 / taskSpeed);
+        await sleep(375 / sortSpeed);
         //do nothing
       }
       setFreeIdx(inputArr[least]);
@@ -202,10 +200,10 @@ function App() {
         plusValue(1);
         setArr([...arr]);
         setNowIdx(inputArr[j]);
-        await sleep(375 / taskSpeed);
+        await sleep(375 / sortSpeed);
         if (inputArr[j] > inputArr[j + 1]) {//swap
           setCompIdx(inputArr[j + 1]);
-          await sleep(375 / taskSpeed);
+          await sleep(375 / sortSpeed);
           setArr([...arr]);
           let tmp = inputArr[j];
           inputArr[j] = inputArr[j + 1];
@@ -217,9 +215,9 @@ function App() {
           swapped = true;
         } else {
           setArr(inputArr);
-          await sleep(375 / taskSpeed);
+          await sleep(375 / sortSpeed);
         }
-        await sleep(188 / taskSpeed);
+        await sleep(188 / sortSpeed);
         setFreeIdx(inputArr[j]);
       }
       if (sorted != 0)
@@ -233,7 +231,7 @@ function App() {
           setArr([...arr]);
           setFinished(inputArr[(sorted - 1)]);
           sorted--;
-          await sleep(750 / taskSpeed);
+          await sleep(750 / sortSpeed);
         }
         break;
       }
@@ -254,7 +252,7 @@ function App() {
       for (let j = i; j > 0; j--) {
         plusValue(1);
         setArr([...arr]);
-        await sleep(188 / taskSpeed);
+        await sleep(188 / sortSpeed);
         if (inputArr[j] < inputArr[j - 1]) {//swap
           compIdx = j;
           setArr([...arr]);
@@ -262,15 +260,15 @@ function App() {
           inputArr[j] = inputArr[j - 1];
           inputArr[j - 1] = tmp;
           plusValue(2);
-          setFinished(inputArr[j]);
-          setCompIdx(inputArr[j-1]);
+          setFinished(inputArr[j - 1]);
+          setCompIdx(inputArr[j]);
           setArr([...arr]);
         } else {
           break;
         }
-        await sleep(188 / taskSpeed);
+        await sleep(188 / sortSpeed);
       }
-      await sleep(188 / taskSpeed);
+      await sleep(188 / sortSpeed);
       for (let k = 0; k < i + 1; k++) {
         setFinished(inputArr[k]);
       }
@@ -281,30 +279,14 @@ function App() {
     alert("정렬이 완료되었습니다.");
   }
 
-  const historyClear = () =>{
+  const mergeSort = (receivedArr) => {
     mergeHistory = [];
     mergeTotalIdx = 0;
-    countHistory = [];
-    countTotalIdx = 0;
-    redBarHistory = [];
-    redBarTotalIdx = 0;
-    purpleBarHistory = [];
-    purpleBarTotalIdx = 0;
-    onTaskHistory = [];
-    onTaskTotalIdx = 0;
-    searchHistory = [];
-    searchTotalIdx = 0;
-    searchCountHistory = [];
-    searchCountIdx = 0;
-  }
-
-  const mergeSort = (receivedArr) => {
-    historyClear();
-    mergeRecursion(receivedArr);
+    recursion(receivedArr);
     mergeTimeLine();
   }
 
-  const mergeRecursion = (receivedArr) => {
+  const recursion = (receivedArr) => {
     setArr([...arr]);
     let recurArr = receivedArr;
     if (recurArr.length <= 1) {
@@ -320,22 +302,22 @@ function App() {
     addCountHistory([false, false, false]);
     addRedBarHistory(left);
     addPurpleBarHistory([0]);
-    addOnTaskHistory(recurArr);//왼쪽 표시
+    addSortingBarHistory(recurArr);//왼쪽 표시
 
     addMergeHistory(arr);
     addCountHistory([false, false, false]);
     addRedBarHistory(left);
     addPurpleBarHistory(right);
-    addOnTaskHistory(recurArr);//오른쪽 표시
+    addSortingBarHistory(recurArr);//오른쪽 표시
 
     addMergeHistory(arr);
     addCountHistory([false, false, false]);
     addRedBarHistory([0]);
     addPurpleBarHistory([0]);
-    addOnTaskHistory(recurArr);//색상 초기화
+    addSortingBarHistory(recurArr);//색상 초기화
 
-    let leftArr = mergeRecursion(left);
-    let rightArr = mergeRecursion(right);
+    let leftArr = recursion(left);
+    let rightArr = recursion(right);
 
     let newArr = domerge(leftArr, rightArr);
     return newArr;
@@ -361,7 +343,7 @@ function App() {
         addCountHistory([true, false, false]);
         addRedBarHistory([compArr[least]]);
         addPurpleBarHistory([compArr[i]]);
-        addOnTaskHistory(compArr);//교환 전 
+        addSortingBarHistory(compArr);//교환 전 
 
         let tmp = compArr[i];
         compArr[i] = compArr[least];
@@ -373,26 +355,26 @@ function App() {
         addCountHistory([false, true, false]);
         addRedBarHistory([compArr[i]]);
         addPurpleBarHistory([compArr[least]]);
-        addOnTaskHistory(compArr);//교환 후
+        addSortingBarHistory(compArr);//교환 후
       } else {//이미 정렬이 된 상태
       }
       addMergeHistory(arr);
       addCountHistory([true, false, false]);
       addRedBarHistory([0]);
       addPurpleBarHistory([0]);
-      addOnTaskHistory(compArr.slice(i + 1));
+      addSortingBarHistory(compArr.slice(i + 1));
     }
     addMergeHistory(arr);
     addCountHistory([false, false, true]);
     addRedBarHistory([0]);
     addPurpleBarHistory(compArr);
-    addOnTaskHistory(compArr);
+    addSortingBarHistory(compArr);
 
     addMergeHistory(arr);
     addCountHistory([false, false, false]);
     addRedBarHistory([0]);
     addPurpleBarHistory([0]);
-    addOnTaskHistory(compArr);
+    addSortingBarHistory(compArr);
     return (compArr);
   }
 
@@ -434,12 +416,12 @@ function App() {
     purpleBarTotalIdx++;
   }
 
-  const addOnTaskHistory = (arr) => {
-    onTaskHistory.push([]);
+  const addSortingBarHistory = (arr) => {
+    sortingBarHistory.push([]);
     for (var s = 0; s < arr.length; s++) {
-      onTaskHistory[onTaskTotalIdx].push(arr[s]);
+      sortingBarHistory[sortingBarTotalIdx].push(arr[s]);
     }
-    onTaskTotalIdx++;
+    sortingBarTotalIdx++;
   }
 
   const addCountHistory = (compNswap) => {
@@ -448,11 +430,6 @@ function App() {
       countHistory[countTotalIdx].push(compNswap[c]);
     }
     countTotalIdx++;
-  }
-
-  const addSearchCountHistory = (search) => {
-    searchCountHistory.push(search);
-    searchCountIdx++;
   }
 
   const mergeTimeLine = async () => {
@@ -467,9 +444,9 @@ function App() {
         plusValue(3);
       setArr(mergeHistory[i]);
 
-      if (onTaskHistory[i][0] != 0) {//현재 진행중인 bar만 색상 초기화
-        for (let s = 0; s < onTaskHistory[i].length; s++) {
-          setFreeIdx(onTaskHistory[i][s]);
+      if (sortingBarHistory[i][0] != 0) {//현재 진행중인 bar만 색상 초기화
+        for (let s = 0; s < sortingBarHistory[i].length; s++) {
+          setFreeIdx(sortingBarHistory[i][s]);
         }
       }
       if (redBarHistory[i][0] != 0) {
@@ -483,7 +460,7 @@ function App() {
         }
       }
 
-      await sleep(375 / taskSpeed);
+      await sleep(375 / sortSpeed);
     }
     barClear();
     buttonOn();
@@ -497,14 +474,14 @@ function App() {
     var speed = getSpeed();
     if (speed === 1) {
       if (arr.length <= 8) {
-        taskSpeed = speed / 8;
+        sortSpeed = speed / 8;
       } else {
-        taskSpeed = speed / 4;
+        sortSpeed = speed / 4;
       }
     } else if (speed === 5) {
-      taskSpeed = speed * 2 * (arr.length / 5);
+      sortSpeed = speed * 2 * (arr.length / 5);
     } else {
-      taskSpeed = speed * (arr.length / 5);
+      sortSpeed = speed * (arr.length / 5);
     }
     await sleep(100);
     switch (sortType) {
@@ -529,224 +506,8 @@ function App() {
     }
   }
 
-  function isThere(){
-    var speed = getSpeed();
-    if (speed === 1) {
-      if (arr.length <= 8) {
-        taskSpeed = speed / 8;
-      } else {
-        taskSpeed = speed / 4;
-      }
-    } else if (speed === 5) {
-      taskSpeed = speed * 2 * (arr.length / 5);
-    } else {
-      taskSpeed = speed * (arr.length / 5);
-    }
-
-    var input = prompt("탐색하고자 하는 원소값을 입력하세요");
-    if(input ==null){//입력값 x
-      barClear();
-      buttonOn();
-      return 0;
-    }else{
-      for(var i = 0; i<arr.length;i++){
-        if(input ==arr[i])
-          return input;
-      }
-    }
-    return -1;
-  }
-
   function sortPause() {
     alert("정렬이 일시정지 되었습니다. 계속 진행하시려면 확인을 누르세요.");
-  }
-
-  const sequentialSearch = async ()  => {
-    valueClear();
-    setArr([...arr]);
-    
-    var searchV = isThere();
-    console.log("Test: "+searchV);
-    var findIdx = 0;
-    if(searchV == 0){ //do nothing
-    }
-    else if (searchV==-1) {
-      alert("입력한 원소값이 배열 내에 없는 것 같습니다.");
-    }
-    else {
-      const inputArr = arr;
-      let len = inputArr.length;
-      
-      for(var i = 0; i<len;i++){
-        if(i!=0){
-          setFinished(inputArr[i-1]);
-        }
-        setNowIdx(inputArr[i]);
-        plusValue(4);
-        setArr([...arr]);
-        await sleep(375/taskSpeed);
-        if(searchV==inputArr[i]){
-          findIdx=i;
-          break;
-        }
-      }
-      await sleep(375/taskSpeed);
-      setCompIdx(inputArr[findIdx]);
-      await sleep(500);
-      setFreeIdx(inputArr[findIdx]);
-      await sleep(500);
-      setCompIdx(inputArr[findIdx]);
-      await sleep(500);
-      setFreeIdx(inputArr[findIdx]);
-      await sleep(500);
-      setCompIdx(inputArr[findIdx]);
-      await sleep(500);
-
-      barClear();
-      buttonOn();
-      alert("탐색을 완료하였습니다. "+searchV+"는 배열 내에서 "+(findIdx+1)+"번째에 존재합니다.");
-    }
-  }
-
-  const  binarySearch = async () => {
-    valueClear();
-    historyClear();
-    setArr([...arr]);
-
-    var searchV = isThere();
-    var findIdx = 0;
-    if(searchV == 0){ //do nothing
-    }
-    else if (searchV==-1) {
-      alert("입력한 원소값이 배열 내에 없는 것 같습니다.");
-    }
-    else {
-      var inputArr = arr;
-      let len = inputArr.length; //n
-
-      let leftIdx = 0;
-      let rightIdx =inputArr.length-1;
-
-      let midIdx = Math.floor((leftIdx+rightIdx)/2);
-
-      addSearchCountHistory(false); //초기 탐색값과 중간값을
-      addRedBarHistory([inputArr[midIdx]]);
-      addPurpleBarHistory([searchV]);
-      addOnTaskHistory(inputArr);
-
-      addSearchCountHistory(false);
-      addRedBarHistory([0]);
-      addPurpleBarHistory([0]);
-      addOnTaskHistory(inputArr);
-
-      addSearchCountHistory(false);
-      addRedBarHistory([inputArr[midIdx]]);
-      addPurpleBarHistory([searchV]);
-      addOnTaskHistory(inputArr);
-
-      addSearchCountHistory(false);
-      addRedBarHistory([0]);
-      addPurpleBarHistory([0]);
-      addOnTaskHistory(inputArr);
-
-      addSearchCountHistory(true);
-      addRedBarHistory([inputArr[midIdx]]);
-      addPurpleBarHistory([searchV]);
-      addOnTaskHistory(inputArr); // 표시하기 위한 코드
-      
-      while(rightIdx>=leftIdx){
-        addSearchCountHistory(false);
-        addRedBarHistory([inputArr[midIdx]]);
-        addPurpleBarHistory([searchV]);
-        addOnTaskHistory(inputArr);
-
-        console.log("left: "+leftIdx+", right: "+rightIdx+", midIdx: "+midIdx);
-        if(inputArr[midIdx]==searchV){
-          findIdx = midIdx;
-
-          addSearchCountHistory(false);
-          addRedBarHistory([inputArr[midIdx]]);
-          addPurpleBarHistory([0]);
-          addOnTaskHistory([inputArr[midIdx]]);
-          console.log("testing3");
-          break;
-        }
-        else if(inputArr[midIdx]>searchV){//키가 중간값보다 작음
-          rightIdx = midIdx-1;
-          midIdx = Math.floor((leftIdx+rightIdx)/2);
-          const tmpArr = [];
-          for(let i =leftIdx;i<rightIdx;i++){
-            tmpArr.push(inputArr[i]);
-          }
-
-          addSearchCountHistory(true);
-          addRedBarHistory([inputArr[midIdx]]);
-          addPurpleBarHistory([searchV]);
-          addOnTaskHistory(tmpArr);
-          console.log("testing1");
-        }
-        else{//키가 중간값보다 큼
-          leftIdx = midIdx+1;
-          midIdx = Math.floor((leftIdx+rightIdx)/2);
-
-          const tmpArr = [];
-          for(let i =leftIdx;i<rightIdx;i++){
-            tmpArr.push(inputArr[i]);
-          }
-
-          addSearchCountHistory(true);
-          addRedBarHistory([inputArr[midIdx]]);
-          addPurpleBarHistory([searchV]);
-          addOnTaskHistory(tmpArr);
-          console.log("testing2");
-        }
-      }
-
-      binaryTimeLine(searchV, findIdx);
-    }
-  }
-
-  const binaryTimeLine = async (searchV, findIdx) =>{
-    setArr([...arr]);
-    for (let i = 0; i < onTaskHistory.length; i++) {
-      barGrayClear();
-      console.log(onTaskHistory[i]+" "+purpleBarHistory[i]+" "+redBarHistory[i]);
-      if (searchCountHistory[i] === true)
-        plusValue(4);
-
-      if(onTaskHistory[i] !=0){
-        for(let t = 0; t<onTaskHistory[i].length; t++){
-          setFreeIdx(onTaskHistory[i][t]);
-        }
-      }
-      if(purpleBarHistory[i] != 0){
-          setNowIdx(purpleBarHistory[i]);
-      }
-      if(redBarHistory[i] != 0){
-          setCompIdx(redBarHistory[i]);
-      }
-      setArr([...arr]);
-      if(i<=4)
-        await sleep(500);
-      else if(i%2==1)
-        await sleep(2000 / taskSpeed);
-      else
-        await sleep(4000 / taskSpeed);
-    }
-    setCompIdx(searchV);
-    await sleep(500);
-    setFreeIdx(searchV);
-    await sleep(500);
-    setCompIdx(searchV);
-    await sleep(500);
-    setFreeIdx(searchV);
-    await sleep(500);
-    setCompIdx(searchV);
-    await sleep(500);
-
-    barClear();
-    buttonOn();
-    alert("탐색을 완료하였습니다. "+searchV+"는 배열 내에서 "+(findIdx+1)+"번째에 존재합니다.");
   }
 
   return (
@@ -759,12 +520,9 @@ function App() {
         insertClicked={insertClicked}
         mergeClicked={mergeClicked}
         sortStart={sortStart}
-        sortPause={sortPause}
-        sequentialSearch={sequentialSearch}
-        binarySearch={binarySearch}>
-        </Header>
-      <Main data={arr} currentIdx={curIdx} nextIdx={nexIdx}/>
-      <Footer/>
+        sortPause={sortPause}></Header>
+      <Main data={arr} currentIdx={curIdx} nextIdx={nexIdx} />
+      <Footer />
     </div>
   );
 }
