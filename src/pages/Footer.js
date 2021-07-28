@@ -47,7 +47,7 @@ const Name = styled.div`
 
 const InnerContent = styled.div`
     display: flex;
-    width: 550px;
+    width: 100%;
     flex-direction: column;
     font-Size:19px;
     line-height: 0% !important;
