@@ -159,6 +159,13 @@ export default function Header({ sortPause, sortRestart, setArray, updateList, r
             await sleep(100);
         }
         sort.style.color = "white";
+        sort.addEventListener('mouseover', function() {
+            this.style.color = "green";
+        });
+        
+        sort.addEventListener('mouseout', function() {
+            this.style.color = "white";
+        });
         top.style.backgroundColor = "#77E000";
         control.style.backgroundColor = "#1CD90B";
     }
