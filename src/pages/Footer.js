@@ -10,7 +10,7 @@ export default function Main() {
             <FooterContent>
                 <InnerContent>
                     Designed by Prof. Jongwan Kim, produced by TaeSeong Kim
-                    <p />[2021.02] - 모두를 위한 컴퓨팅 사고
+                    <p>[2021.02] - 모두를 위한 컴퓨팅 사고</p>
                     <a href="https://github.com/tay97kim/Sorting-Visualizer" target="_blank">
                         <img src="https://www.cutercounter.com/hits.php?id=hexfpxqo&nd=7&style=11" border="0" alt="best free website hit counter"/>
                         <p>2023.</p>
@@ -29,7 +29,7 @@ const Footer = styled.footer`
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 300px;
+    height: 320px;
     align-content: space-between;
     background-color: #71B309;
     justify-content: center;
