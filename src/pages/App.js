@@ -6,6 +6,7 @@ import Main from './Main';
 import Footer from './Footer';
 
 import './App.style.css';
+import { inject } from '@vercel/analytics';
 
 function App() {
   var indexLimit = 100;
@@ -25,6 +26,8 @@ function App() {
   var sortingBarTotalIdx = 0;
   var countHistory = [];
   var countTotalIdx = 0;
+  
+  inject();
 
   useEffect(() => {
     updateList();
