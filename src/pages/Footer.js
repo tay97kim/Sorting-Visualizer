@@ -11,10 +11,8 @@ export default function Main() {
                 <InnerContent>
                     Designed by Prof. Jongwan Kim, produced by TaeSeong Kim
                     <p>[2021.02] - 모두를 위한 컴퓨팅 사고</p>
-                    <a href="https://github.com/tay97kim/Sorting-Visualizer" target="_blank">
-                        <img src="https://www.cutercounter.com/hits.php?id=hxfpxqp&nd=7&style=11" border="0" alt="best free website hit counter"/>
-                    </a>
-                    <p>2023.</p>
+                    
+                    <p>Since 2023. Jan.</p>
                 </InnerContent>
             </FooterContent>
             <FooterContent>
